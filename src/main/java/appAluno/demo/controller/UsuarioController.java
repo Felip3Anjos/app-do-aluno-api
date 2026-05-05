@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.Map;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class UsuarioController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario novoUsuario) {
+    public ResponseEntity<?> registrarUsuario(@RequestBody @Valid Usuario novoUsuario) {
         if (usuarioRepository.findByNomeUsuario(novoUsuario.getNomeUsuario()).isPresent()) {
             return new ResponseEntity<>("Nome de utilizador já existe.", HttpStatus.BAD_REQUEST);
         }
